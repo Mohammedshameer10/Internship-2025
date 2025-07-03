@@ -1,0 +1,40 @@
+/* Global styling */
+body {
+  background-color: #000 !important;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Modal content readable */
+.modal-content {
+  color: #000;
+}
+
+/* Sticky Note Card */
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.card-title, .card-text {
+  word-break: break-word;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-text:last-of-type {
+  border-bottom: none;
+}
+
+/* Button Styling */
+#createNoteBtn {
+  border-radius: 0.5rem;
+}
+
+/* Bigger Icon Size */
+.note-icon {
+  font-size: 1.25rem;
+}
