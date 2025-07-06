@@ -7,103 +7,72 @@ const titleInput = document.getElementById("noteTitle");
 const contentInput = document.getElementById("noteContent");
 
 let notes = JSON.parse(localStorage.getItem("notes")) || [];
-let currentEditIndex = null;
+let editIndex = null;
 
 const colors = ['#f28b82', '#fff475', '#ccff90', '#a7ffeb', '#cbf0f8', '#aecbfa', '#d7aefb', '#fdcfe8'];
 
-function getTimestamp() {
-  const now = new Date();
-  return `${now.toLocaleDateString()} ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+function getTime() {
+  const d = new Date();
+  return `${d.toLocaleDateString()} ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+}
+
+function saveAndRender() {
+  localStorage.setItem("notes", JSON.stringify(notes));
+  renderNotes();
 }
 
 function renderNotes() {
   notesContainer.innerHTML = "";
-  notes.forEach((note, index) => {
-    const col = document.createElement("div");
-    col.className = "col-md-4";
-
-    const card = document.createElement("div");
-    card.className = "card text-dark mb-4 shadow rounded-4";
-    card.innerHTML = `
-      <div class="card-body" style="background-color: ${note.color}">
-        <h5 class="card-title border-bottom pb-2 mb-3">${note.title}</h5>
-        <p class="card-text border-bottom pb-2 mb-3">${note.content}</p>
-        <p class="text-muted small mb-3">${note.timestamp}</p>
-        <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-outline-dark edit" data-index="${index}" title="Edit">
-            <i class="bi bi-pencil-fill note-icon"></i>
-          </button>
-          <button class="btn btn-sm btn-outline-danger delete" data-index="${index}" title="Delete">
-            <i class="bi bi-trash-fill note-icon"></i>
-          </button>
+  notes.forEach((n, i) => {
+    notesContainer.innerHTML += `
+      <div class="col-md-4 mb-3">
+        <div class="card shadow" style="background:${n.color}">
+          <div class="card-body">
+            <h5 class="card-title">${n.title}</h5>
+            <p class="card-text">${n.content}</p>
+            <p class="text-muted small">${n.timestamp}</p>
+            <button class="btn btn-sm btn-dark me-2 edit" data-i="${i}">✏️</button>
+            <button class="btn btn-sm btn-danger delete" data-i="${i}">🗑️</button>
+          </div>
         </div>
-      </div>
-    `;
-
-    col.appendChild(card);
-    notesContainer.appendChild(col);
+      </div>`;
   });
 }
 
-function saveNotes() {
-  localStorage.setItem("notes", JSON.stringify(notes));
-}
-
-createBtn.addEventListener("click", () => {
-  modalTitle.textContent = "Create New Note";
+createBtn.onclick = () => {
+  modalTitle.textContent = "New Note";
   titleInput.value = "";
   contentInput.value = "";
-  currentEditIndex = null;
+  editIndex = null;
   modal.show();
-});
+};
 
-saveBtn.addEventListener("click", () => {
+saveBtn.onclick = () => {
   const title = titleInput.value.trim() || "Untitled";
   const content = contentInput.value.trim();
-  const timestamp = getTimestamp();
-
   if (!content) return;
 
-  if (currentEditIndex !== null) {
-    notes[currentEditIndex] = { ...notes[currentEditIndex], title, content, timestamp };
-  } else {
-    notes.push({
-      title,
-      content,
-      timestamp,
-      color: colors[Math.floor(Math.random() * colors.length)]
-    });
-  }
+  const note = { title, content, timestamp: getTime(), color: colors[Math.floor(Math.random() * colors.length)] };
 
-  saveNotes();
-  renderNotes();
+  if (editIndex !== null) notes[editIndex] = { ...notes[editIndex], ...note };
+  else notes.push(note);
+
+  saveAndRender();
   modal.hide();
-});
+};
 
-notesContainer.addEventListener("click", (event) => {
-
-  const clickedButton = event.target.closest("button");
-
-  if (!clickedButton) return;
-
-  // Get the note's index (position in the array)
-  const noteIndex = clickedButton.dataset.index;
-
-  if (clickedButton.classList.contains("delete")) {
-    notes.splice(noteIndex, 1);        
-    saveNotes();                        
-    renderNotes();                    
-  }
-
-  else if (clickedButton.classList.contains("edit")) {
-    currentEditIndex = noteIndex;      
-    const note = notes[noteIndex];     
+notesContainer.onclick = (e) => {
+  const i = e.target.dataset.i;
+  if (e.target.classList.contains("delete")) {
+    notes.splice(i, 1);
+    saveAndRender();
+  } else if (e.target.classList.contains("edit")) {
+    editIndex = i;
     modalTitle.textContent = "Edit Note";
-    titleInput.value = note.title;     
-    contentInput.value = note.content; 
-    modal.show();                      
+    titleInput.value = notes[i].title;
+    contentInput.value = notes[i].content;
+    modal.show();
   }
-});
+};
 
 renderNotes();
-
