@@ -1,7 +1,6 @@
 Today's Task
 
 Created an Employee Table with the following features:
-
 Add new employee (with unique ID generation)
 
 Edit employee ID (once per user)
