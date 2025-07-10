@@ -16,19 +16,20 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   if (user) {
     localStorage.setItem("loggedInUser", JSON.stringify(user));
-    formMessage.className = "text-white fw-bold text-center mt-2";
+    formMessage.className = "text-success fw-bold text-center mt-2";
 
-    if (user.role === "admin") {
-      formMessage.textContent = "Admin login successful! Redirecting...";
-      setTimeout(() => {
+    // Show toast
+    const toastEl = document.getElementById("loginSuccessToast");
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+
+    setTimeout(() => {
+      if (user.role === "admin") {
         window.location.href = "admin-dashboard.html";
-      }, 1000);
-    } else {
-      formMessage.textContent = "Login successful! Redirecting...";
-      setTimeout(() => {
+      } else {
         window.location.href = "user-dashboard.html";
-      }, 1000);
-    }
+      }
+    }, 2000);
   } else {
     formMessage.className = "text-danger fw-bold text-center mt-2";
     formMessage.textContent = "Invalid credentials. Please register first.";
@@ -36,14 +37,12 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 });
 
 // Toggle password visibility
-const passwordInput = document.getElementById("password");
-const togglePassword = document.querySelector(".toggle-password");
-
-togglePassword.addEventListener("click", function () {
-  const icon = this.querySelector("i");
-  const isHidden = passwordInput.type === "password";
-
-  passwordInput.type = isHidden ? "text" : "password";
-  icon.classList.toggle("fa-eye");
-  icon.classList.toggle("fa-eye-slash");
+document.querySelectorAll('.toggle-password').forEach(toggle => {
+  toggle.addEventListener('click', function () {
+    const input = document.getElementById(this.getAttribute('data-target'));
+    const icon = this.querySelector('i');
+    input.type = input.type === 'password' ? 'text' : 'password';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+  });
 });

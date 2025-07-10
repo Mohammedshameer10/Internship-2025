@@ -7,36 +7,53 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body style="background: linear-gradient(to right, #4ca1af, #2c3e50);">
-  <div class="container text-white mt-5">
-    <h1 class="text-center mb-4">Login</h1>
-    <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-4">
-        <form id="loginForm" class="border p-4 rounded shadow text-white">
-            <div id="formMessage" class="mb-3 fw-bold text-center"></div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" id="email" class="form-control" placeholder="Enter your email" required />
+<body class="bg-white">
+
+  <div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="w-100" style="max-width: 400px;">
+      <h1 class="text-center mb-3 text-dark">Welcome Back! 👋</h1>
+      <div id="formMessage" class="mb-3 fw-bold text-center"></div>
+
+      <form id="loginForm" class="border p-4 rounded shadow bg-white text-dark d-flex flex-column justify-content-between" style="min-height: 400px;">
+        <div class="mb-0">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" id="email" class="form-control" placeholder="Enter your email" required />
+        </div>
+
+        <div class="mb-0">
+          <label for="password" class="form-label">Password:</label>
+          <div class="input-group">
+            <input type="password" id="password" class="form-control" placeholder="Enter your password" required />
+            <span class="input-group-text toggle-password" data-target="password" style="cursor: pointer;">
+              <i class="fa fa-eye-slash"></i>
+            </span>
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <div class="input-group">
-              <input type="password" id="password" class="form-control" placeholder="Enter your password" required />
-              <span class="input-group-text toggle-password" data-target="password" style="cursor: pointer;">
-                <i class="fa fa-eye-slash"></i>
-              </span>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
 
+        <a href="register.html" class="btn btn-secondary w-100 mt-1">
+          <i class="fa-solid fa-hand-pointer me-2"></i> New here? Let's get you started!
+        </a>
+      </form>
+
+      <!-- Toast for success message -->
+      <div class="toast-container mt-3 d-flex justify-content-center">
+        <div id="loginSuccessToast" class="toast align-items-center text-white bg-success border-0 px-3 py-2 w-100"
+             role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
+          <div class="d-flex">
+            <div class="toast-body fw-bold">
+              Login successful! Redirecting...
             </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
           </div>
-
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-          <a href="register.html" class="btn btn-secondary w-100 mt-2">Don't have an account? Register</a>
-        </form>
+        </div>
       </div>
+      <!-- End Toast -->
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   <script src="login.js"></script>
 </body>
 </html>
