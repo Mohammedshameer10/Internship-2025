@@ -7,12 +7,11 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
   const confirmPassword = document.getElementById('confirm-password').value;
   const formMessage = document.getElementById('formMessage');
 
-  // Reset message and input styles
   formMessage.textContent = "";
-  formMessage.classList.remove("text-success", "text-danger");
+  formMessage.className = ""; // reset classes
+
   document.querySelectorAll('.form-control').forEach(input => input.classList.remove('is-invalid'));
 
-  // Email format check
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     document.getElementById("email").classList.add("is-invalid");
@@ -21,11 +20,10 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
     return;
   }
 
-  // Password strength check
-  function validatePassword(password) {
+  const validatePassword = (password) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
     return regex.test(password);
-  }
+  };
 
   if (!validatePassword(password)) {
     document.getElementById("password").classList.add("is-invalid");
@@ -34,7 +32,6 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
     return;
   }
 
-  // Password match
   if (password !== confirmPassword) {
     document.getElementById("confirm-password").classList.add("is-invalid");
     formMessage.textContent = "Passwords do not match.";
@@ -42,17 +39,14 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
     return;
   }
 
-  // Check if user already exists
   let users = JSON.parse(localStorage.getItem('users')) || [];
-  const userExists = users.some(user => user.email === email);
-  if (userExists) {
+  if (users.some(user => user.email === email)) {
     document.getElementById("email").classList.add("is-invalid");
     formMessage.textContent = "User with this email already exists. Please login.";
     formMessage.classList.add("text-danger");
     return;
   }
 
-  // Add user
   const newUser = {
     username,
     email,
@@ -63,27 +57,27 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
   users.push(newUser);
   localStorage.setItem('users', JSON.stringify(users));
 
-  formMessage.classList.remove("text-danger");
-  formMessage.classList.add("text-success");
-  formMessage.classList.add("fw-bold", "text-dark");
   formMessage.textContent = "Registration successful! Redirecting to login...";
+  formMessage.classList.add("text-success", "fw-bold");
 
   setTimeout(() => {
-    window.location.href = 'login.html';
+    window.location.href = 'user-dashboard.html';
   }, 1000);
 });
 
-// Password toggle
 document.querySelectorAll('.toggle-password').forEach(toggle => {
   toggle.addEventListener('click', function () {
-    const targetId = this.getAttribute('data-target');
-    const input = document.getElementById(targetId);
+    const input = document.getElementById(this.dataset.target);
     const icon = this.querySelector('i');
 
-    const isPassword = input.type === 'password';
-    input.type = isPassword ? 'text' : 'password';
-
-    icon.classList.toggle('fa-eye');
-    icon.classList.toggle('fa-eye-slash');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    } else {
+      input.type = 'password';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    }
   });
 });
