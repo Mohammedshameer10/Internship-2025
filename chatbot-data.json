@@ -1,0 +1,24 @@
+{
+  "questions": [
+    {
+      "question": "What is your name?",
+      "answer": "I am ChatBot 1.0, your virtual assistant."
+    },
+    {
+      "question": "How are you?",
+      "answer": "I'm doing great, thanks for asking!"
+    },
+    {
+      "question": "What can you do?",
+      "answer": "I can answer simple questions based on my database."
+    },
+    {
+      "question": "Who created you?",
+      "answer": "I was created by a developer for demonstration purposes."
+    },
+    {
+      "question": "What is the time now?",
+      "answer": "Check your system clock, but I think it's always a good time to code!"
+    }
+  ]
+}
