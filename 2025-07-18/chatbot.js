@@ -10,10 +10,6 @@ fetch(dataURL)
   .then((response) => response.json())
   .then((data) => {
     questionsAndAnswers = data.questions;
-    const introMessage =
-      "👋 Hello! You can ask me these:\n" +
-      questionsAndAnswers.map((item) => `• ${item.question}`).join("\n");
-    showMessage("bot", introMessage);
   })
   .catch((error) => {
     console.error("Failed to load chatbot data:", error);
@@ -29,14 +25,14 @@ function showMessage(sender, text) {
 }
 
 function sendMessage() {
-  const userText = userInput.value.trim();
+  const userText = userInput.value.trim().toLowerCase(); // ✅ Convert to lowercase
   if (!userText) return;
 
-  showMessage("user", userText);
+  showMessage("user", userInput.value.trim()); // Show original user text
   userInput.value = "";
 
   const match = questionsAndAnswers.find(
-    (item) => item.question.toLowerCase() === userText.toLowerCase()
+    (item) => item.question.toLowerCase() === userText // ✅ Compare in lowercase
   );
 
   if (match) {
