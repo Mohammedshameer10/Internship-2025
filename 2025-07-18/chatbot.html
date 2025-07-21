@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chatbot</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="chatbot.css" />
+</head>
+<body>
+<div class="app-container d-flex">
+
+
+    <div class="sidebar">
+    <h5 class="sidebar-title">My Chats</h5>
+    <input type="text" class="form-control search-box" placeholder="Search...">
+    <div class="folder-section">
+      <p class="section-title">Folders</p>
+      <div class="folder">📁 Work chats</div>
+      <div class="folder">📁 Life chats</div>
+      <div class="folder">📁 Project chats</div>
+    </div>
+    <div class="chat-section">
+      <p class="section-title">Chats</p>
+      <div class="chat-item">💬 Plan a 3-day trip</div>
+      <div class="chat-item">💬 Customer loyalty ideas</div>
+    </div>
+    <button class="btn btn-success w-100 mt-auto">+ New Chat</button>
+</div>
+
+
+  <main class="chat-main flex-grow-1 position-relative">
+
+    <div class="account-bar">
+      <div class="account-icon">👤</div>
+      <div>
+        <strong id="userName">Guest User</strong><br>
+        <small id="userEmail">guest@example.com</small>
+      </div>
+      <div class="logout-icon" id="logoutBtn" title="Logout">↩</div>
+    </div>
+
+ <div class="header text-center">
+  <h2 id="welcomeMessage">👋 Hey there! What can I do for you today?</h2>
+</div>
+<!-- 
+    <div class="prompt-cards d-flex justify-content-center flex-wrap">
+      <div class="prompt-card">📄 Saved Prompt Templates</div>
+      <div class="prompt-card">🎞 Media Type Selection</div>
+      <div class="prompt-card">🌐 Multilingual Support</div>
+    </div> -->
+
+    <div id="chatBox" class="chat-box"></div>
+
+    <div class="input-group chat-input mt-3">
+      <input type="text" id="userInput" class="form-control" placeholder="Type your message...">
+      <button class="btn btn-success" id="sendBtn">➤</button>
+    </div>
+  </main>
+</div>
+
+<script src="chatbot.js"></script>
+</body>
+</html>
