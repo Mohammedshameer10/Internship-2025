@@ -1,50 +1,33 @@
 import React from "react";
 
-const Sidebar = ({
-  notes,
-  selectedNoteIndex,
-  handleSelectNote,
-  handleNewNote,
-}) => {
+function Sidebar({ notes, selectedNoteIndex, handleSelectNote, handleNewNote }) {
   return (
-    <div className="w-72 bg-gray-900 text-white p-4 flex flex-col">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">My Notes</h2>
-        <button
-          onClick={handleNewNote}
-          className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-        >
-          New
-        </button>
-      </div>
+    <div className="w-full sm:w-1/4 md:w-1/5 lg:w-1/6 xl:w-1/12 bg-white border-r border-gray-300 p-3 flex flex-col">
+      <button
+        onClick={handleNewNote}
+        className="bg-blue-500 text-white text-sm px-3 py-1 rounded mb-3 hover:bg-blue-600"
+      >
+        New +
+      </button>
 
-      <div className="flex-1 overflow-y-auto space-y-2">
+      <div className="space-y-2 overflow-y-auto">
         {notes.map((note, index) => (
-          <div
+          <button
             key={index}
             onClick={() => handleSelectNote(index)}
-            className={`p-3 rounded cursor-pointer ${
-              selectedNoteIndex === index
-                ? "bg-blue-700"
-                : "bg-gray-800 hover:bg-gray-700"
+            className={`w-full text-left p-2 rounded text-sm hover:bg-gray-200 ${
+              selectedNoteIndex === index ? "bg-blue-100" : "bg-gray-100"
             }`}
           >
-            <div className="font-medium text-sm truncate">
-              {note.text.split("\n")[0] || "Untitled Note"}
-            </div>
-            {note.category && (
-              <div className="text-xs text-gray-300 mt-1 italic">
-                {note.category}
-              </div>
-            )}
-            <div className="text-xs text-gray-400 mt-1">
-              {note.date || ""}
-            </div>
-          </div>
+            <p className="font-semibold truncate">
+              {note.text.split("\n")[0] || "Untitled"}
+            </p>
+            <p className="text-xs text-gray-500">{note.date}</p>
+          </button>
         ))}
       </div>
     </div>
   );
-};
+}
 
 export default Sidebar;
