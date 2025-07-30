@@ -32,7 +32,9 @@ function App() {
 
   const handleDelete = () => {
     if (selectedNoteIndex !== null) {
-      const updatedNotes = notes.filter((_, index) => index !== selectedNoteIndex);
+        const updatedNotes = notes.filter((note, i) => {
+          return i !== index;
+      });
       setNotes(updatedNotes);
       setCurrentNote("");
       setSelectedNoteIndex(null);
