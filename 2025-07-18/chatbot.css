@@ -64,7 +64,6 @@ body {
   justify-content: flex-start;
 }
 
-/* ✅ Account Bar */
 .account-bar {
   position: absolute;
   top: 15px;
@@ -101,7 +100,6 @@ body {
   color: #ff1c1c;
 }
 
-/* ✅ Header */
 .header {
   text-align: center;
   max-width: 720px;
@@ -146,7 +144,6 @@ body {
   align-self: flex-start;
 }
 
-/* ✅ Input Area */
 .chat-input {
   width: 100%;
   max-width: 720px;
