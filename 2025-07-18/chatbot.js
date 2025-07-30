@@ -25,14 +25,14 @@ function showMessage(sender, text) {
 }
 
 function sendMessage() {
-  const userText = userInput.value.trim().toLowerCase(); // ✅ Convert to lowercase
+  const userText = userInput.value.trim().toLowerCase();
   if (!userText) return;
 
-  showMessage("user", userInput.value.trim()); // Show original user text
+  showMessage("user", userInput.value.trim()); 
   userInput.value = "";
 
   const match = questionsAndAnswers.find(
-    (item) => item.question.toLowerCase() === userText // ✅ Compare in lowercase
+    (item) => item.question.toLowerCase() === userText 
   );
 
   if (match) {
